@@ -1,1 +1,199 @@
-﻿{"paragraphs":[{"text":"%spark\n\nimport org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n \nval cveApi = sc.parallelize(IOUtils.toString(new URL(\"https://api-us-west-2.srcclr.com/catalog/search?q=language%3Ajava%20type%3Avulnerability\"), Charset.forName(\"utf8\")).split(\"\\n\"))\n\nval cveApiJson = sqlContext.read.json(cveApi).toDF()\n\n\n\n","user":"cowboy76","dateUpdated":"2018-04-10T10:13:47+0900","config":{"colWidth":12,"enabled":true,"results":{},"editorSetting":{"language":"scala"},"editorMode":"ace/mode/scala","tableHide":true,"editorHide":false},"settings":{"params":{},"forms":{}},"results":{"code":"SUCCESS","msg":[{"type":"TEXT","data":"import org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\ncveApi: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:31\ncveApiJson: org.apache.spark.sql.DataFrame = [contents: array<struct<_enhanced:bigint,_severity:double,_vulnCount:bigint,_vulnerableMethods:boolean,hitScore:double,model:struct<artifactComponents:array<struct<componentId:bigint,componentLatestRelease:string,coordHash:string,coordOne:string,coordTwo:string,versionRanges:array<struct<commitHashes:array<string>,componentInstances:array<struct<componentInstanceHash:string,componentInstanceId:bigint>>,endCommit:string,fixDate:string,fixLinks:array<struct<description:string,link:string,type:string>>,fixText:string,id:bigint,patch:string,startCommit:string,updateToVersion:string,versionRange:string>>>>,artifactLinks:array<string>,community:boolean,createdDate:string,cveDigits:string,cveStatus:string,cveYear:string,disclosureDate:string,hasExpl..."}]},"apps":[],"jobName":"paragraph_1523235320978_805416613","id":"20180409-095520_1233480199","dateCreated":"2018-04-09T09:55:20+0900","dateStarted":"2018-04-10T09:40:53+0900","dateFinished":"2018-04-10T09:40:58+0900","status":"FINISHED","progressUpdateIntervalMs":500,"focus":true,"$$hashKey":"object:109"},{"text":"%spark\n\n\nval contents = cveApiJson.select(explode($\"contents\").as(\"contents\"))\n\n\nval result = contents.select($\"contents.model.id\", $\"contents._severity\", $\"contents.model.title\",$\"contents.model.cveYear\", $\"contents.model.cveDigits\", $\"artifact.coordTwo\",$\"artifact.versionRanges.updateToVersion\", $\"artifact.versionRanges.versionRange\",explode($\"contents.model.artifactComponents\").as(\"artifact\"))\n\n\nresult.registerTempTable(\"cveTable\")","user":"cowboy76","dateUpdated":"2018-04-10T10:13:50+0900","config":{"colWidth":12,"enabled":true,"results":{},"editorSetting":{"language":"scala"},"editorMode":"ace/mode/scala","editorHide":false,"tableHide":true},"settings":{"params":{},"forms":{}},"results":{"code":"SUCCESS","msg":[{"type":"TEXT","data":"contents: org.apache.spark.sql.DataFrame = [contents: struct<_enhanced: bigint, _severity: double ... 5 more fields>]\nresult: org.apache.spark.sql.DataFrame = [id: bigint, _severity: double ... 7 more fields]\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"}]},"apps":[],"jobName":"paragraph_1523248886475_1042078905","id":"20180409-134126_993416306","dateCreated":"2018-04-09T13:41:26+0900","dateStarted":"2018-04-10T09:40:53+0900","dateFinished":"2018-04-10T09:40:59+0900","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:110"},{"text":"%sql\n\nSELECT id, _severity, title, CONCAT(\"CVE\",\"-\",cveYear,\"-\",cveDigits), coordTwo, versionRange, updateToVersion FROM cveTable\n","user":"cowboy76","dateUpdated":"2018-04-10T10:13:53+0900","config":{"colWidth":12,"enabled":true,"results":{"0":{"graph":{"mode":"table","height":300,"optionOpen":false},"helium":{}}},"editorSetting":{"language":"sql"},"editorMode":"ace/mode/sql","editorHide":false},"settings":{"params":{},"forms":{}},"results":{"code":"SUCCESS","msg":[{"type":"TABLE","data":"id\t_severity\ttitle\tconcat(CVE, -, cveYear, -, cveDigits)\tcoordTwo\tversionRange\tupdateToVersion\n5011\t10.0\tRemote Code Execution (RCE)\tCVE-2017-9805\tstruts2-rest-plugin\tWrappedArray(2.5-2.5.12, 2.1.2-2.3.33)\tWrappedArray(2.5.13, 2.3.34)\n6054\t10.0\tRemote Code Execution  (RCE)\tCVE-2018-1270\tspring-messaging\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE, 4.3.0.RELEASE-4.3.14.RELEASE, 4.0.0.RELEASE-4.2.6.RELEASE)\tWrappedArray(5.0.5.RELEASE, 4.3.15.RELEASE, 4.3.15.RELEASE)\n3644\t10.0\tRemote Code Execution (RCE) Through Jakarta Multipart Parser\tCVE-2017-5638\tstruts2-core\tWrappedArray(2.3.5-2.3.31, 2.5-2.5.10)\tWrappedArray(2.3.32, 2.5.10.1)\n5690\t7.5\tRemote Code Execution (RCE)\tCVE-2017-5878\tred5-io\tWrappedArray(1.0.4-RELEASE-1.0.8-M13)\tWrappedArray(1.0.8-RELEASE)\n5312\t7.2\tArbitrary Command Execution Through Java Deserialization Flaw\tCVE-2017-12628\tjames-server\tWrappedArray(3.0.0)\tWrappedArray(3.0.1)\n6049\t7.1\tUnauthorized Write To Arbitrary Location\tCVE-2018-1315\thive-hplsql\tWrappedArray(2.1.0-2.3.2)\tWrappedArray(2.3.3)\n6055\t7.1\tDirectory Traversal\tCVE-2018-1271\tspring-webmvc\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE, 4.0.0.RELEASE-4.3.14.RELEASE, 3.0.4.RELEASE-3.2.18.RELEASE)\tWrappedArray(5.0.5.RELEASE, 4.3.15.RELEASE, 4.3.15.RELEASE)\n6055\t7.1\tDirectory Traversal\tCVE-2018-1271\tspring-webflux\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE)\tWrappedArray(5.0.5.RELEASE)\n5926\t7.5\tRemote Code Execution (RCE)\tCVE-2018-1000130\tjolokia-jsr160\tWrappedArray(1.0.0-1.4.0)\tWrappedArray(1.5.0)\n6040\t6.8\tArbitrary Code Execution\tCVE-2018-1295\tignite-core\tWrappedArray(1.0.0-RC1-2.2.0)\tWrappedArray(2.3.0)\n5860\t7.5\tUnsafe Deserialization\tCVE-2017-15692\tgeode-core\tWrappedArray(1.0.0-incubating.M2-1.3.0)\tWrappedArray(1.4.0)\n5281\t10.0\tRemote Code Execution (RCE)\tCVE-2017-12629\tlucene-queryparser\tWrappedArray(4.0.0-ALPHA-7.0.1)\tWrappedArray()\n5281\t10.0\tRemote Code Execution (RCE)\tCVE-2017-12629\tlucene-xml-query-parser\tWrappedArray(1.9.1-3.6.2)\tWrappedArray()\n5854\t7.5\tRemote Code Execution (RCE)\tCVE-2018-7489\tjackson-databind\tWrappedArray(2.9.0.pr1-2.9.4, 2.0.0-RC1-2.7.9.2, 2.8.0.rc1-2.8.11)\tWrappedArray(2.9.5, 2.7.9.3, 2.8.11.1)\n5817\t7.5\tRemote Code Execution (RCE)\tCVE-2018-1287\tApacheJMeter_core\tWrappedArray(2.6-3.3.)\tWrappedArray(4.0)\n6007\t6.4\tCross-site Scripting (XSS)\tCVE-2018-1229\tspring-batch-admin-manager\tWrappedArray(1.0.0.RELEASE-1.3.1.RELEASE)\tWrappedArray()\n5771\t7.8\tSecurity Constraint Bypass\tCVE-2018-1199\tspring-security-web\tWrappedArray(4.1.0.RELEASE-4.1.3.RELEASE, 5.0.0.RELEASE, 4.2.0.RELEASE-4.2.3.RELEASE, 3.1.0.RELEASE-4.0.4.RELEASE)\tWrappedArray(4.1.4.RELEASE, 5.0.1.RELEASE, 4.2.4.RELEASE, 4.1.4.RELEASE)\n5771\t7.8\tSecurity Constraint Bypass\tCVE-2018-1199\tspring-webmvc\tWrappedArray(3.1.0.RELEASE-4.3.12.RELEASE, 5.0.0.RELEASE-5.0.1.RELEASE)\tWrappedArray(4.3.13.RELEASE, 5.0.2.RELEASE)\n5820\t7.5\tUnsafe Deserialization\tCVE-2017-15089\tinfinispan-client-hotrod\tWrappedArray(7.0.0.Alpha5-7.2.5.Final, 8.1.0.Alpha2-8.2.8.Final, 9.0.2.Final-9.2.0.Beta2)\tWrappedArray(9.2.0.CR1, 9.2.0.CR1, 9.2.0.CR1)\n"}]},"apps":[],"jobName":"paragraph_1523246162507_515686046","id":"20180409-125602_128199343","dateCreated":"2018-04-09T12:56:02+0900","dateStarted":"2018-04-10T09:40:58+0900","dateFinished":"2018-04-10T09:41:00+0900","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:111"},{"text":"%sql\n","user":"cowboy76","dateUpdated":"2018-04-10T09:40:53+0900","config":{"colWidth":12,"enabled":true,"results":{},"editorSetting":{"language":"sql"},"editorMode":"ace/mode/sql"},"settings":{"params":{},"forms":{}},"apps":[],"jobName":"paragraph_1523247138154_-471404487","id":"20180409-131218_709858269","dateCreated":"2018-04-09T13:12:18+0900","status":"FINISHED","progressUpdateIntervalMs":500,"$$hashKey":"object:112"}],"name":"/CVE/java","id":"2DBFM19EZ","angularObjects":{"2CYK22F8P:shared_process":[],"2D7TPV3XE:shared_process":[],"2D4GB1MQK:shared_process":[],"2CYN29XGY:shared_process":[],"2CYNDVSPF:shared_process":[],"2D84YJ32K:shared_process":[],"2CYH9134D:shared_process":[],"2CZ2P9JQQ:shared_process":[],"2D6NJ21QH:shared_process":[]},"config":{"looknfeel":"default","personalizedMode":"false","cronExecutingUser":"cowboy76","cron":"0 0 0 * * ?","releaseresource":true},"info":{}}
+﻿{
+	"paragraphs": [
+		{
+			"text": "%spark\n\nimport org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n \nval cveApi = sc.parallelize(IOUtils.toString(new URL(\"https://api-us-west-2.srcclr.com/catalog/search?q=language%3Ajava%20type%3Avulnerability\"), Charset.forName(\"utf8\")).split(\"\\n\"))\n\nval cveApiJson = sqlContext.read.json(cveApi).toDF()\n\n\n\n",
+			"user": "cowboy76",
+			"dateUpdated": "2018-04-10T10:13:47+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"language": "scala"
+				},
+				"editorMode": "ace/mode/scala",
+				"tableHide": true,
+				"editorHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "TEXT",
+						"data": "import org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\ncveApi: org.apache.spark.rdd.RDD[String] = ParallelCollectionRDD[0] at parallelize at <console>:31\ncveApiJson: org.apache.spark.sql.DataFrame = [contents: array<struct<_enhanced:bigint,_severity:double,_vulnCount:bigint,_vulnerableMethods:boolean,hitScore:double,model:struct<artifactComponents:array<struct<componentId:bigint,componentLatestRelease:string,coordHash:string,coordOne:string,coordTwo:string,versionRanges:array<struct<commitHashes:array<string>,componentInstances:array<struct<componentInstanceHash:string,componentInstanceId:bigint>>,endCommit:string,fixDate:string,fixLinks:array<struct<description:string,link:string,type:string>>,fixText:string,id:bigint,patch:string,startCommit:string,updateToVersion:string,versionRange:string>>>>,artifactLinks:array<string>,community:boolean,createdDate:string,cveDigits:string,cveStatus:string,cveYear:string,disclosureDate:string,hasExpl..."
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1523235320978_805416613",
+			"id": "20180409-095520_1233480199",
+			"dateCreated": "2018-04-09T09:55:20+0900",
+			"dateStarted": "2018-04-10T09:40:53+0900",
+			"dateFinished": "2018-04-10T09:40:58+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"focus": true,
+			"$$hashKey": "object:109"
+		},
+		{
+			"text": "%spark\n\n\nval contents = cveApiJson.select(explode($\"contents\").as(\"contents\"))\n\n\nval result = contents.select($\"contents.model.id\", $\"contents._severity\", $\"contents.model.title\",$\"contents.model.cveYear\", $\"contents.model.cveDigits\", $\"artifact.coordTwo\",$\"artifact.versionRanges.updateToVersion\", $\"artifact.versionRanges.versionRange\",explode($\"contents.model.artifactComponents\").as(\"artifact\"))\n\n\nresult.registerTempTable(\"cveTable\")",
+			"user": "cowboy76",
+			"dateUpdated": "2018-04-10T10:13:50+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"language": "scala"
+				},
+				"editorMode": "ace/mode/scala",
+				"editorHide": false,
+				"tableHide": true
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "TEXT",
+						"data": "contents: org.apache.spark.sql.DataFrame = [contents: struct<_enhanced: bigint, _severity: double ... 5 more fields>]\nresult: org.apache.spark.sql.DataFrame = [id: bigint, _severity: double ... 7 more fields]\nwarning: there was one deprecation warning; re-run with -deprecation for details\n"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1523248886475_1042078905",
+			"id": "20180409-134126_993416306",
+			"dateCreated": "2018-04-09T13:41:26+0900",
+			"dateStarted": "2018-04-10T09:40:53+0900",
+			"dateFinished": "2018-04-10T09:40:59+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:110"
+		},
+		{
+			"text": "%sql\n\nSELECT id, _severity, title, CONCAT(\"CVE\",\"-\",cveYear,\"-\",cveDigits), coordTwo, versionRange, updateToVersion FROM cveTable\n",
+			"user": "cowboy76",
+			"dateUpdated": "2018-04-10T10:13:53+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+					"0": {
+						"graph": {
+							"mode": "table",
+							"height": 300,
+							"optionOpen": false
+						},
+						"helium": {
+
+						}
+					}
+				},
+				"editorSetting": {
+					"language": "sql"
+				},
+				"editorMode": "ace/mode/sql",
+				"editorHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "TABLE",
+						"data": "id\t_severity\ttitle\tconcat(CVE, -, cveYear, -, cveDigits)\tcoordTwo\tversionRange\tupdateToVersion\n5011\t10.0\tRemote Code Execution (RCE)\tCVE-2017-9805\tstruts2-rest-plugin\tWrappedArray(2.5-2.5.12, 2.1.2-2.3.33)\tWrappedArray(2.5.13, 2.3.34)\n6054\t10.0\tRemote Code Execution  (RCE)\tCVE-2018-1270\tspring-messaging\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE, 4.3.0.RELEASE-4.3.14.RELEASE, 4.0.0.RELEASE-4.2.6.RELEASE)\tWrappedArray(5.0.5.RELEASE, 4.3.15.RELEASE, 4.3.15.RELEASE)\n3644\t10.0\tRemote Code Execution (RCE) Through Jakarta Multipart Parser\tCVE-2017-5638\tstruts2-core\tWrappedArray(2.3.5-2.3.31, 2.5-2.5.10)\tWrappedArray(2.3.32, 2.5.10.1)\n5690\t7.5\tRemote Code Execution (RCE)\tCVE-2017-5878\tred5-io\tWrappedArray(1.0.4-RELEASE-1.0.8-M13)\tWrappedArray(1.0.8-RELEASE)\n5312\t7.2\tArbitrary Command Execution Through Java Deserialization Flaw\tCVE-2017-12628\tjames-server\tWrappedArray(3.0.0)\tWrappedArray(3.0.1)\n6049\t7.1\tUnauthorized Write To Arbitrary Location\tCVE-2018-1315\thive-hplsql\tWrappedArray(2.1.0-2.3.2)\tWrappedArray(2.3.3)\n6055\t7.1\tDirectory Traversal\tCVE-2018-1271\tspring-webmvc\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE, 4.0.0.RELEASE-4.3.14.RELEASE, 3.0.4.RELEASE-3.2.18.RELEASE)\tWrappedArray(5.0.5.RELEASE, 4.3.15.RELEASE, 4.3.15.RELEASE)\n6055\t7.1\tDirectory Traversal\tCVE-2018-1271\tspring-webflux\tWrappedArray(5.0.0.RELEASE-5.0.4.RELEASE)\tWrappedArray(5.0.5.RELEASE)\n5926\t7.5\tRemote Code Execution (RCE)\tCVE-2018-1000130\tjolokia-jsr160\tWrappedArray(1.0.0-1.4.0)\tWrappedArray(1.5.0)\n6040\t6.8\tArbitrary Code Execution\tCVE-2018-1295\tignite-core\tWrappedArray(1.0.0-RC1-2.2.0)\tWrappedArray(2.3.0)\n5860\t7.5\tUnsafe Deserialization\tCVE-2017-15692\tgeode-core\tWrappedArray(1.0.0-incubating.M2-1.3.0)\tWrappedArray(1.4.0)\n5281\t10.0\tRemote Code Execution (RCE)\tCVE-2017-12629\tlucene-queryparser\tWrappedArray(4.0.0-ALPHA-7.0.1)\tWrappedArray()\n5281\t10.0\tRemote Code Execution (RCE)\tCVE-2017-12629\tlucene-xml-query-parser\tWrappedArray(1.9.1-3.6.2)\tWrappedArray()\n5854\t7.5\tRemote Code Execution (RCE)\tCVE-2018-7489\tjackson-databind\tWrappedArray(2.9.0.pr1-2.9.4, 2.0.0-RC1-2.7.9.2, 2.8.0.rc1-2.8.11)\tWrappedArray(2.9.5, 2.7.9.3, 2.8.11.1)\n5817\t7.5\tRemote Code Execution (RCE)\tCVE-2018-1287\tApacheJMeter_core\tWrappedArray(2.6-3.3.)\tWrappedArray(4.0)\n6007\t6.4\tCross-site Scripting (XSS)\tCVE-2018-1229\tspring-batch-admin-manager\tWrappedArray(1.0.0.RELEASE-1.3.1.RELEASE)\tWrappedArray()\n5771\t7.8\tSecurity Constraint Bypass\tCVE-2018-1199\tspring-security-web\tWrappedArray(4.1.0.RELEASE-4.1.3.RELEASE, 5.0.0.RELEASE, 4.2.0.RELEASE-4.2.3.RELEASE, 3.1.0.RELEASE-4.0.4.RELEASE)\tWrappedArray(4.1.4.RELEASE, 5.0.1.RELEASE, 4.2.4.RELEASE, 4.1.4.RELEASE)\n5771\t7.8\tSecurity Constraint Bypass\tCVE-2018-1199\tspring-webmvc\tWrappedArray(3.1.0.RELEASE-4.3.12.RELEASE, 5.0.0.RELEASE-5.0.1.RELEASE)\tWrappedArray(4.3.13.RELEASE, 5.0.2.RELEASE)\n5820\t7.5\tUnsafe Deserialization\tCVE-2017-15089\tinfinispan-client-hotrod\tWrappedArray(7.0.0.Alpha5-7.2.5.Final, 8.1.0.Alpha2-8.2.8.Final, 9.0.2.Final-9.2.0.Beta2)\tWrappedArray(9.2.0.CR1, 9.2.0.CR1, 9.2.0.CR1)\n"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1523246162507_515686046",
+			"id": "20180409-125602_128199343",
+			"dateCreated": "2018-04-09T12:56:02+0900",
+			"dateStarted": "2018-04-10T09:40:58+0900",
+			"dateFinished": "2018-04-10T09:41:00+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:111"
+		},
+		{
+			"text": "%sql\n",
+			"user": "cowboy76",
+			"dateUpdated": "2018-04-10T09:40:53+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"language": "sql"
+				},
+				"editorMode": "ace/mode/sql"
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"apps": [],
+			"jobName": "paragraph_1523247138154_-471404487",
+			"id": "20180409-131218_709858269",
+			"dateCreated": "2018-04-09T13:12:18+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:112"
+		}
+	],
+	"name": "/CVE/java",
+	"id": "2DBFM19EZ",
+	"angularObjects": {
+		"2CYK22F8P:shared_process": [],
+		"2D7TPV3XE:shared_process": [],
+		"2D4GB1MQK:shared_process": [],
+		"2CYN29XGY:shared_process": [],
+		"2CYNDVSPF:shared_process": [],
+		"2D84YJ32K:shared_process": [],
+		"2CYH9134D:shared_process": [],
+		"2CZ2P9JQQ:shared_process": [],
+		"2D6NJ21QH:shared_process": []
+	},
+	"config": {
+		"looknfeel": "default",
+		"personalizedMode": "false",
+		"cronExecutingUser": "cowboy76",
+		"cron": "0 0 0 * * ?",
+		"releaseresource": true
+	},
+	"info": {
+
+	}
+}
