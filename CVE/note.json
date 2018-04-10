@@ -172,15 +172,7 @@
 	"name": "cve",
 	"id": "2DBFM19EZ",
 	"angularObjects": {
-		"2CYK22F8P:shared_process": [],
-		"2D7TPV3XE:shared_process": [],
-		"2D4GB1MQK:shared_process": [],
-		"2CYN29XGY:shared_process": [],
-		"2CYNDVSPF:shared_process": [],
-		"2D84YJ32K:shared_process": [],
-		"2CYH9134D:shared_process": [],
-		"2CZ2P9JQQ:shared_process": [],
-		"2D6NJ21QH:shared_process": []
+
 	},
 	"config": {
 		"looknfeel": "default",
