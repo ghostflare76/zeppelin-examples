@@ -1,0 +1,394 @@
+﻿{
+	"paragraphs": [
+		{
+			"text": "%angular\n\n\n<!-- Include Date Range Picker -->\n<script type=\"text/javascript\" src=\"//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js\"></script>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css\" />\n\n\n",
+			"dateUpdated": "2018-03-20T10:03:05+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"editOnDblClick": true
+				},
+				"editorMode": "ace/mode/undefined",
+				"editorHide": true,
+				"tableHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "ANGULAR",
+						"data": "<!-- Include Date Range Picker -->\n<script type=\"text/javascript\" src=\"//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js\"></script>\n<link rel=\"stylesheet\" type=\"text/css\" href=\"//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css\" />"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518132632116_-581192159",
+			"id": "20180209-083032_816133122",
+			"dateCreated": "2018-02-09T08:30:32+0900",
+			"dateStarted": "2018-03-20T09:57:20+0900",
+			"dateFinished": "2018-03-20T09:57:20+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"focus": true,
+			"$$hashKey": "object:829"
+		},
+		{
+			"text": "%angular\r\n\r\n<input id=\"start1\" ng-model=\"start\" style=\"visibility: hidden;\"></input>\r\n\r\n<div class=\"col-md-4\">\r\n날짜를 선택해주세요.\r\n    <fieldset>\r\n    <div class=\"control-group\">\r\n        <div class=\"controls\">\r\n            <div class=\"input-prepend input-group\">\r\n            <span class=\"add-on input-group-addon\"><i class=\"glyphicon glyphicon-calendar fa fa-calendar\"></i></span>\r\n            <input type=\"text\" style=\"width: 200px\" name=\"birthdate\" id=\"birthdate\"  class=\"form-control\" ng-model=\"start1\" />\r\n            <button type=\"submit\" class=\"btn btn-primary pull-left\" ng-click=\"\r\n                z.angularBind('start',start,'20180209-100228_1150472074');z.runParagraph('20180209-100228_1150472074');\r\n            \"> 조회</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </fieldset>\r\n</div>\r\n                      \r\n\r\n<script type=\"text/javascript\">\r\n$(function() {\r\n    \r\n    var dateFormat = 'YYYY-MM-DD';\r\n     var start = moment();\r\n    function cb (start) {\r\n       // $('#birthdate').val(start.format(dateFormat));\r\n        $('#start1').val(start.format(dateFormat).toString());\r\n        $('#start1').trigger('input'); // Use for Chrome/Firefox/Edge\r\n        $('#start1').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\r\n    }\r\n    \r\n    $('input[name=\"birthdate\"]').daterangepicker({\r\n        singleDatePicker: true,\r\n        showDropdowns: true,\r\n       \r\n        locale: {\r\n            format: 'YYYY-MM-DD'\r\n        }\r\n        \r\n    }, cb);\r\n    \r\n    cb(start);\r\n});\r\n</script>",
+			"dateUpdated": "2018-04-10T10:35:16+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"editOnDblClick": true
+				},
+				"editorMode": "ace/mode/undefined",
+				"editorHide": true,
+				"tableHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "ANGULAR",
+						"data": "<input id=\"start1\" ng-model=\"start\" style=\"visibility: hidden;\"></input>\r\n\r\n<div class=\"col-md-4\">\r\n날짜를 선택해주세요.\r\n    <fieldset>\r\n    <div class=\"control-group\">\r\n        <div class=\"controls\">\r\n            <div class=\"input-prepend input-group\">\r\n            <span class=\"add-on input-group-addon\"><i class=\"glyphicon glyphicon-calendar fa fa-calendar\"></i></span>\r\n            <input type=\"text\" style=\"width: 200px\" name=\"birthdate\" id=\"birthdate\"  class=\"form-control\" ng-model=\"start1\" />\r\n            <button type=\"submit\" class=\"btn btn-primary pull-left\" ng-click=\"\r\n                z.angularBind('start',start,'20180209-100228_1150472074');z.runParagraph('20180209-100228_1150472074');\r\n            \"> 조회</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </fieldset>\r\n</div>\r\n                      \r\n\r\n<script type=\"text/javascript\">\r\n$(function() {\r\n    \r\n    var dateFormat = 'YYYY-MM-DD';\r\n     var start = moment();\r\n    function cb (start) {\r\n       // $('#birthdate').val(start.format(dateFormat));\r\n        $('#start1').val(start.format(dateFormat).toString());\r\n        $('#start1').trigger('input'); // Use for Chrome/Firefox/Edge\r\n        $('#start1').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\r\n    }\r\n    \r\n    $('input[name=\"birthdate\"]').daterangepicker({\r\n        singleDatePicker: true,\r\n        showDropdowns: true,\r\n       \r\n        locale: {\r\n            format: 'YYYY-MM-DD'\r\n        }\r\n        \r\n    }, cb);\r\n    \r\n    cb(start);\r\n});\r\n</script>"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518132537328_-1793859395",
+			"id": "20180209-082857_1784108380",
+			"dateCreated": "2018-02-09T08:28:57+0900",
+			"dateStarted": "2018-04-10T10:35:16+0900",
+			"dateFinished": "2018-04-10T10:35:17+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:830"
+		},
+		{
+			"text": "%md\n\n${start}\n",
+			"dateUpdated": "2018-04-10T10:36:23+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+					"1": {
+						"graph": {
+							"mode": "table",
+							"height": 300,
+							"optionOpen": false
+						},
+						"helium": {
+
+						}
+					}
+				},
+				"editorSetting": {
+					"editOnDblClick": true,
+					"language": "markdown"
+				},
+				"editorMode": "ace/mode/markdown",
+				"editorHide": false
+			},
+			"settings": {
+				"params": {
+					"start": ""
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "HTML",
+						"data": "<div class=\"markdown-body\">\n<p>2018-04-10</p>\n</div>"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518138148576_-1601948851",
+			"id": "20180209-100228_1150472074",
+			"dateCreated": "2018-02-09T10:02:28+0900",
+			"dateStarted": "2018-04-10T10:36:23+0900",
+			"dateFinished": "2018-04-10T10:36:23+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:831"
+		},
+		{
+			"text": "%angular\n\n<input id=\"start\" ng-model=\"start\" style=\"visibility: hidden;\"></input>\n<input id=\"end\" ng-model=\"end\" style=\"visibility: hidden;\"></input>\n<div class=\"col-md-4\">\n날짜를 선택해주세요.\n    <fieldset>\n    <div class=\"control-group\">\n        <div class=\"controls\">\n            <div class=\"input-prepend input-group\">\n            <span class=\"add-on input-group-addon\"><i class=\"glyphicon glyphicon-calendar fa fa-calendar\"></i></span>\n            <input type=\"text\" style=\"width: 200px\" name=\"duration\" id=\"duration\"  class=\"form-control\"  />\n            <button type=\"submit\" class=\"btn btn-primary pull-left\" ng-click=\"\n            z.angularBind('start',start,'20180209-131429_523775050');z.angularBind('end',end,'20180209-131429_523775050');z.runParagraph('20180209-131429_523775050');\n            z.angularBind('start',start,'20180209-131921_1896797217');z.angularBind('end',end,'20180209-131921_1896797217');z.runParagraph('20180209-131921_1896797217');\n            \"> 조회</button>\n            </div>\n        </div>\n    </div>\n    </fieldset>\n</div>\n                      \n\n<script type=\"text/javascript\">\n$(function() {\n    var start = moment();\n    var end = moment();\n    var dateFormat = 'YYYY-MM-DD';\n    \n    function cb (start, end) {\n      \n        $('#start').val(start.format(dateFormat).toString());\n            $('#start').trigger('input'); // Use for Chrome/Firefox/Edge\n            $('#start').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\n            $('#end').val(end.format(dateFormat).toString());\n            $('#end').trigger('input'); // Use for Chrome/Firefox/Edge\n            $('#end').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\n    }\n    \n    $('input[name=\"duration\"]').daterangepicker({\n        startDate: start,\n        endDate: end,\n        showDropdowns: true,\n         ranges: {\n                '오늘': [moment(), moment()],\n                '어제': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],\n                '지난 7일': [moment().subtract(6, 'days'), moment()],\n                '지난 30일': [moment().subtract(29, 'days'), moment()],\n                '이번달': [moment().startOf('month'), moment().endOf('month')],\n                '지난달': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]\n            },\n       \n        locale: {\n            format: 'YYYY-MM-DD'\n        }\n        \n    }, cb);\n    \n    cb(start,end);\n});\n</script>\n",
+			"dateUpdated": "2018-04-10T10:36:42+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"editOnDblClick": true,
+					"language": "sql"
+				},
+				"editorMode": "ace/mode/undefined",
+				"editorHide": true,
+				"tableHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "ANGULAR",
+						"data": "<input id=\"start\" ng-model=\"start\" style=\"visibility: hidden;\"></input>\n<input id=\"end\" ng-model=\"end\" style=\"visibility: hidden;\"></input>\n<div class=\"col-md-4\">\n날짜를 선택해주세요.\n    <fieldset>\n    <div class=\"control-group\">\n        <div class=\"controls\">\n            <div class=\"input-prepend input-group\">\n            <span class=\"add-on input-group-addon\"><i class=\"glyphicon glyphicon-calendar fa fa-calendar\"></i></span>\n            <input type=\"text\" style=\"width: 200px\" name=\"duration\" id=\"duration\"  class=\"form-control\"  />\n            <button type=\"submit\" class=\"btn btn-primary pull-left\" ng-click=\"\n            z.angularBind('start',start,'20180209-131429_523775050');z.angularBind('end',end,'20180209-131429_523775050');z.runParagraph('20180209-131429_523775050');\n            z.angularBind('start',start,'20180209-131921_1896797217');z.angularBind('end',end,'20180209-131921_1896797217');z.runParagraph('20180209-131921_1896797217');\n            \"> 조회</button>\n            </div>\n        </div>\n    </div>\n    </fieldset>\n</div>\n                      \n\n<script type=\"text/javascript\">\n$(function() {\n    var start = moment();\n    var end = moment();\n    var dateFormat = 'YYYY-MM-DD';\n    \n    function cb (start, end) {\n      \n        $('#start').val(start.format(dateFormat).toString());\n            $('#start').trigger('input'); // Use for Chrome/Firefox/Edge\n            $('#start').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\n            $('#end').val(end.format(dateFormat).toString());\n            $('#end').trigger('input'); // Use for Chrome/Firefox/Edge\n            $('#end').trigger('change'); // Use for Chrome/Firefox/Edge + IE11\n    }\n    \n    $('input[name=\"duration\"]').daterangepicker({\n        startDate: start,\n        endDate: end,\n        showDropdowns: true,\n         ranges: {\n                '오늘': [moment(), moment()],\n                '어제': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],\n                '지난 7일': [moment().subtract(6, 'days'), moment()],\n                '지난 30일': [moment().subtract(29, 'days'), moment()],\n                '이번달': [moment().startOf('month'), moment().endOf('month')],\n                '지난달': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]\n            },\n       \n        locale: {\n            format: 'YYYY-MM-DD'\n        }\n        \n    }, cb);\n    \n    cb(start,end);\n});\n</script>"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518139971289_355073402",
+			"id": "20180209-103251_905840387",
+			"dateCreated": "2018-02-09T10:32:51+0900",
+			"dateStarted": "2018-04-10T10:36:42+0900",
+			"dateFinished": "2018-04-10T10:36:42+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:832"
+		},
+		{
+			"text": "%angular\n\nstartdate : {{start}} \nenddate : {{end}} \n\n",
+			"dateUpdated": "2018-04-10T10:36:50+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"editOnDblClick": true
+				},
+				"editorMode": "ace/mode/undefined",
+				"editorHide": true,
+				"tableHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "ANGULAR",
+						"data": "startdate : {{start}} \nenddate : {{end}}"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518149669328_2145732983",
+			"id": "20180209-131429_523775050",
+			"dateCreated": "2018-02-09T13:14:29+0900",
+			"dateStarted": "2018-04-10T10:36:50+0900",
+			"dateFinished": "2018-04-10T10:36:50+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:833"
+		},
+		{
+			"text": "%md\n\n${start} - ${end}",
+			"dateUpdated": "2018-04-10T10:36:50+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+					"1": {
+						"graph": {
+							"mode": "multiBarChart",
+							"height": 300,
+							"optionOpen": false,
+							"setting": {
+								"multiBarChart": {
+
+								}
+							},
+							"commonSetting": {
+
+							},
+							"keys": [
+								{
+									"name": "boardName",
+									"index": 0,
+									"aggr": "sum"
+								}
+							],
+							"groups": [
+								{
+									"name": "boardType",
+									"index": 2,
+									"aggr": "sum"
+								}
+							],
+							"values": [
+								{
+									"name": "statisticsCount",
+									"index": 4,
+									"aggr": "sum"
+								}
+							]
+						},
+						"helium": {
+
+						}
+					}
+				},
+				"editorSetting": {
+					"editOnDblClick": true,
+					"language": "markdown"
+				},
+				"editorMode": "ace/mode/markdown",
+				"editorHide": false
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"results": {
+				"code": "SUCCESS",
+				"msg": [
+					{
+						"type": "HTML",
+						"data": "<div class=\"markdown-body\">\n<p>2018-04-04 - 2018-04-10</p>\n</div>"
+					}
+				]
+			},
+			"apps": [],
+			"jobName": "paragraph_1518149961060_1493813460",
+			"id": "20180209-131921_1896797217",
+			"dateCreated": "2018-02-09T13:19:21+0900",
+			"dateStarted": "2018-04-10T10:36:50+0900",
+			"dateFinished": "2018-04-10T10:36:50+0900",
+			"status": "FINISHED",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:834"
+		},
+		{
+			"text": "%opdb-mssql\n",
+			"dateUpdated": "2018-02-12T14:07:38+0900",
+			"config": {
+				"colWidth": 12,
+				"enabled": true,
+				"results": {
+
+				},
+				"editorSetting": {
+					"editOnDblClick": false,
+					"language": "sql"
+				},
+				"editorMode": "ace/mode/sql",
+				"editorHide": true
+			},
+			"settings": {
+				"params": {
+
+				},
+				"forms": {
+
+				}
+			},
+			"apps": [],
+			"jobName": "paragraph_1518150776236_-233178212",
+			"id": "20180209-133256_1875113529",
+			"dateCreated": "2018-02-09T13:32:56+0900",
+			"status": "READY",
+			"progressUpdateIntervalMs": 500,
+			"$$hashKey": "object:835"
+		}
+	],
+	"name": "calendar",
+	"id": "2D8AN3JKJ",
+	"angularObjects": {
+		"2CYK22F8P:shared_process": [
+			{
+				"name": "start",
+				"object": "2018-03-07",
+				"noteId": "2D8AN3JKJ",
+				"paragraphId": "20180209-131429_523775050"
+			},
+			{
+				"name": "end",
+				"object": "2018-04-03",
+				"noteId": "2D8AN3JKJ",
+				"paragraphId": "20180209-131429_523775050"
+			}
+		],
+		"2D4GB1MQK:shared_process": [],
+		"2CYN29XGY:shared_process": [],
+		"2CYNDVSPF:shared_process": [
+			{
+				"name": "start",
+				"object": "2018-03-06",
+				"noteId": "2D8AN3JKJ",
+				"paragraphId": "20180209-100228_1150472074"
+			},
+			{
+				"name": "start",
+				"object": "2018-03-07",
+				"noteId": "2D8AN3JKJ",
+				"paragraphId": "20180209-131921_1896797217"
+			},
+			{
+				"name": "end",
+				"object": "2018-04-03",
+				"noteId": "2D8AN3JKJ",
+				"paragraphId": "20180209-131921_1896797217"
+			}
+		],
+		"2D84YJ32K:shared_process": [],
+		"2CYH9134D:shared_process": [],
+		"2CZ2P9JQQ:shared_process": [],
+		"2D6NJ21QH:shared_process": []
+	},
+	"config": {
+		"looknfeel": "default",
+		"personalizedMode": "false"
+	},
+	"info": {
+
+	}
+}
