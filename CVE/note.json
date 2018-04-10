@@ -171,7 +171,9 @@
 	],
 	"name": "cve",
 	"id": "2DBFM19EZ",
-	"angularObjects": {},
+	"angularObjects": {
+
+	},
 	"config": {
 		"looknfeel": "default",
 		"personalizedMode": "false",
