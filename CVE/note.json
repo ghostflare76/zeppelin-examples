@@ -2,7 +2,6 @@
 	"paragraphs": [
 		{
 			"text": "%spark\n\nimport org.apache.commons.io.IOUtils\nimport java.net.URL\nimport java.nio.charset.Charset\n \nval cveApi = sc.parallelize(IOUtils.toString(new URL(\"https://api-us-west-2.srcclr.com/catalog/search?q=language%3Ajava%20type%3Avulnerability\"), Charset.forName(\"utf8\")).split(\"\\n\"))\n\nval cveApiJson = sqlContext.read.json(cveApi).toDF()\n\n\n\n",
-			"user": "cowboy76",
 			"dateUpdated": "2018-04-10T10:13:47+0900",
 			"config": {
 				"colWidth": 12,
@@ -47,7 +46,6 @@
 		},
 		{
 			"text": "%spark\n\n\nval contents = cveApiJson.select(explode($\"contents\").as(\"contents\"))\n\n\nval result = contents.select($\"contents.model.id\", $\"contents._severity\", $\"contents.model.title\",$\"contents.model.cveYear\", $\"contents.model.cveDigits\", $\"artifact.coordTwo\",$\"artifact.versionRanges.updateToVersion\", $\"artifact.versionRanges.versionRange\",explode($\"contents.model.artifactComponents\").as(\"artifact\"))\n\n\nresult.registerTempTable(\"cveTable\")",
-			"user": "cowboy76",
 			"dateUpdated": "2018-04-10T10:13:50+0900",
 			"config": {
 				"colWidth": 12,
@@ -91,7 +89,6 @@
 		},
 		{
 			"text": "%sql\n\nSELECT id, _severity, title, CONCAT(\"CVE\",\"-\",cveYear,\"-\",cveDigits), coordTwo, versionRange, updateToVersion FROM cveTable\n",
-			"user": "cowboy76",
 			"dateUpdated": "2018-04-10T10:13:53+0900",
 			"config": {
 				"colWidth": 12,
@@ -143,7 +140,6 @@
 		},
 		{
 			"text": "%sql\n",
-			"user": "cowboy76",
 			"dateUpdated": "2018-04-10T09:40:53+0900",
 			"config": {
 				"colWidth": 12,
@@ -173,23 +169,12 @@
 			"$$hashKey": "object:112"
 		}
 	],
-	"name": "/CVE/java",
+	"name": "cve",
 	"id": "2DBFM19EZ",
-	"angularObjects": {
-		"2CYK22F8P:shared_process": [],
-		"2D7TPV3XE:shared_process": [],
-		"2D4GB1MQK:shared_process": [],
-		"2CYN29XGY:shared_process": [],
-		"2CYNDVSPF:shared_process": [],
-		"2D84YJ32K:shared_process": [],
-		"2CYH9134D:shared_process": [],
-		"2CZ2P9JQQ:shared_process": [],
-		"2D6NJ21QH:shared_process": []
-	},
+	"angularObjects": {},
 	"config": {
 		"looknfeel": "default",
 		"personalizedMode": "false",
-		"cronExecutingUser": "cowboy76",
 		"cron": "0 0 0 * * ?",
 		"releaseresource": true
 	},
